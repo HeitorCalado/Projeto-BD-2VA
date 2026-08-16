@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: bd_2va_projeto
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+      POSTGRES_DB: projeto_pesquisa
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./povoamento.sql:/docker-entrypoint-initdb.d/2-povoamento.sql
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
